@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ITE Online Shop</string>
+    <string name="my_profile">My Profile</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="john_doe">John Doe</string>
+    <string name="john">John</string>
+    <string name="johndoe_example_com">johndoe@example.com</string>
+    <string name="edit_icon">Edit Icon</string>
+    <string name="email">Email</string>
 </resources>

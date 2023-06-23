@@ -56,14 +56,11 @@
         android:id="@+id/where_are_you_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/navigation_bar"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_centerInParent="true"
         android:fontFamily="@font/poppins_bold"
-        android:text="What do you\nwant to buy?"
+        android:text="Welcome to \nITE Online Shop"
+        android:textAlignment="center"
         android:textSize="28sp"
         android:textStyle="bold" />
-
-
 
 </RelativeLayout>
