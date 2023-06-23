@@ -14,7 +14,7 @@ import kh.edu.rupp.ite.onlineshop.R;
 import kh.edu.rupp.ite.onlineshop.ui.fragment.HomeFragment;
 import kh.edu.rupp.ite.onlineshop.ui.fragment.ProductFragment;
 import kh.edu.rupp.ite.onlineshop.ui.fragment.ProfileFragment;
-import kh.edu.rupp.ite.onlineshop.ui.fragment.SearchFragment;
+import kh.edu.rupp.ite.onlineshop.ui.fragment.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView bottomNavigationView;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (item.getItemId() == R.id.menu_home) {
             selectedFragment = new HomeFragment();
         } else if (item.getItemId() == R.id.menu_search) {
-            selectedFragment = new SearchFragment();
+            selectedFragment = new SettingsFragment();
         } else if (item.getItemId() == R.id.menu_profile) {
             selectedFragment = new ProfileFragment();
         } else if (item.getItemId() == R.id.menu_product) {
