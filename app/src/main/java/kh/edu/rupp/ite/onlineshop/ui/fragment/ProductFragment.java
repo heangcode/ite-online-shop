@@ -52,7 +52,9 @@ public class ProductFragment extends Fragment {
     }
 
     private void showProductList() {
-        Retrofit httpClient = new Retrofit.Builder().baseUrl("https://ferupp.s3.ap-southeast-1.amazonaws.com").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit httpClient = new Retrofit.Builder()
+                .baseUrl("https://raw.githubusercontent.com")
+                .addConverterFactory(GsonConverterFactory.create()).build();
 
         // TODO: Create service Object
         ApiService apiService = httpClient.create(ApiService.class);
