@@ -31,6 +31,8 @@
             <!-- Add any other necessary intent filters or configuration for MainActivity -->
         </activity>
 
+        <activity android:name=".ui.activity.ProductDetailActivity" />
+
     </application>
 
 </manifest>

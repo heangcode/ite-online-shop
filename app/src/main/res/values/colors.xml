@@ -10,4 +10,6 @@
     <color name="colorHint">#666666</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorStroke">#CCCCCC</color>
+    <color name="button_background_color">#FF0000</color>
+    <color name="button_background_color_buy">#50C878</color>
 </resources>

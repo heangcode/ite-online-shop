@@ -1,6 +1,7 @@
 package kh.edu.rupp.ite.onlineshop.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import kh.edu.rupp.ite.onlineshop.R;
 import kh.edu.rupp.ite.onlineshop.api.model.Product;
 import kh.edu.rupp.ite.onlineshop.databinding.ViewHolderGridProductBinding;
 import kh.edu.rupp.ite.onlineshop.databinding.ViewHolderProductBinding;
+import kh.edu.rupp.ite.onlineshop.ui.activity.ProductDetailActivity;
 
 public class ProductsAdapter extends ListAdapter<Product, RecyclerView.ViewHolder> {
 
@@ -83,15 +85,15 @@ public class ProductsAdapter extends ListAdapter<Product, RecyclerView.ViewHolde
             itemBinding.txtProductPrice.setText("$" + product.getPrice());
             loadImage(itemBinding.imgProduct, product.getImageUrl());
 
+            itemBinding.getRoot().setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
+                intent.putExtra("product", product);
+                v.getContext().startActivity(intent);
+            });
         }
 
         private void loadImage(ImageView imgProduct, String imageUrl) {
-            Glide.with(imgProduct.getContext())
-                    .load(imageUrl)
-                    .placeholder(R.drawable.profile)
-                    .error(R.drawable.ic_error)
-                    .transform(new RoundedCornersTransformation(50, 0, RoundedCornersTransformation.CornerType.ALL))
-                    .into(imgProduct);
+            Glide.with(imgProduct.getContext()).load(imageUrl).placeholder(R.drawable.profile).error(R.drawable.ic_error).transform(new RoundedCornersTransformation(50, 0, RoundedCornersTransformation.CornerType.ALL)).into(imgProduct);
         }
     }
 
@@ -109,16 +111,16 @@ public class ProductsAdapter extends ListAdapter<Product, RecyclerView.ViewHolde
             itemBinding.txtProductName.setText(product.getName());
             itemBinding.txtProductPrice.setText("$" + product.getPrice());
             loadImage(itemBinding.imgGridProduct, product.getImageUrl());
+
+            itemBinding.getRoot().setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
+                intent.putExtra("product",product);
+                v.getContext().startActivity(intent);
+            });
+        }
+
+        private static void loadImage(ImageView imgProduct, String imageUrl) {
+            Glide.with(imgProduct.getContext()).load(imageUrl).placeholder(R.drawable.profile).error(R.drawable.ic_error).transform(new RoundedCornersTransformation(50, 0, RoundedCornersTransformation.CornerType.ALL)).into(imgProduct);
         }
     }
-
-    private static void loadImage(ImageView imgProduct, String imageUrl) {
-        Glide.with(imgProduct.getContext())
-                .load(imageUrl)
-                .placeholder(R.drawable.profile)
-                .error(R.drawable.ic_error)
-                .transform(new RoundedCornersTransformation(50, 0, RoundedCornersTransformation.CornerType.ALL))
-                .into(imgProduct);
-    }
-
 }

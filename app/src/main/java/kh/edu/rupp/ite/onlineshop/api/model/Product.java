@@ -2,7 +2,7 @@ package kh.edu.rupp.ite.onlineshop.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Product {
+public class Product implements java.io.Serializable {
     private int id;
     private String name;
     private String description;
