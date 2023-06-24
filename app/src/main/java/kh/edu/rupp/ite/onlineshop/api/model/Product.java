@@ -9,7 +9,6 @@ public class Product {
     @SerializedName("image-url")
     private String imageUrl;
     private double price;
-    private double rating;  // Changed this from int to double
 
     public int getId() {
         return id;
@@ -51,11 +50,13 @@ public class Product {
         this.price = price;
     }
 
-    public double getRating() {  // Changed this from int to double
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {  // Changed this from int to double
+    public void setRating(double rating) {
         this.rating = rating;
     }
+
+    private double rating;
 }
