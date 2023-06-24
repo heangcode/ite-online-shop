@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import kh.edu.rupp.ite.onlineshop.R;
 import kh.edu.rupp.ite.onlineshop.api.model.Product;
 import kh.edu.rupp.ite.onlineshop.databinding.ViewHolderGridProductBinding;
@@ -82,9 +82,16 @@ public class ProductsAdapter extends ListAdapter<Product, RecyclerView.ViewHolde
             itemBinding.txtProductName.setText(product.getName());
             itemBinding.txtProductPrice.setText("$" + product.getPrice());
             loadImage(itemBinding.imgProduct, product.getImageUrl());
+
         }
 
         private void loadImage(ImageView imgProduct, String imageUrl) {
+            Glide.with(imgProduct.getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.profile)
+                    .error(R.drawable.ic_error)
+                    .transform(new RoundedCornersTransformation(50, 0, RoundedCornersTransformation.CornerType.ALL))
+                    .into(imgProduct);
         }
     }
 
@@ -101,16 +108,17 @@ public class ProductsAdapter extends ListAdapter<Product, RecyclerView.ViewHolde
             itemBinding.txtProductRating.setText(String.valueOf(product.getRating()));
             itemBinding.txtProductName.setText(product.getName());
             itemBinding.txtProductPrice.setText("$" + product.getPrice());
-            loadImage(itemBinding.imgProduct, product.getImageUrl());
+            loadImage(itemBinding.imgGridProduct, product.getImageUrl());
         }
     }
 
-    private static void loadImage(ImageView imageView, String imageUrl) {
-        Glide.with(imageView.getContext())
+    private static void loadImage(ImageView imgProduct, String imageUrl) {
+        Glide.with(imgProduct.getContext())
                 .load(imageUrl)
                 .placeholder(R.drawable.profile)
                 .error(R.drawable.ic_error)
                 .transform(new RoundedCornersTransformation(50, 0, RoundedCornersTransformation.CornerType.ALL))
-                .into(imageView);
+                .into(imgProduct);
     }
+
 }

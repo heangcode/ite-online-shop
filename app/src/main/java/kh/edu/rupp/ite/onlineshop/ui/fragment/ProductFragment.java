@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class ProductFragment extends Fragment {
 
     private FragmentProductBinding binding;
     private boolean isListView = true; // Default view is List View
+    private ProgressBar progressBar;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -40,6 +42,7 @@ public class ProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentProductBinding.inflate(inflater, container, false);
+        progressBar = binding.progressBar; // Initialize the ProgressBar
         return binding.getRoot();
     }
 
@@ -51,6 +54,7 @@ public class ProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isListView = true;
+                showLoadingIndicator(); // Show the loading indicator
                 showProductList();
             }
         });
@@ -59,13 +63,13 @@ public class ProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isListView = false;
+                showLoadingIndicator(); // Show the loading indicator
                 showProductList();
             }
         });
 
         showProductList();
     }
-
 
     private void showProductList() {
         Retrofit httpClient = new Retrofit.Builder().baseUrl("https://raw.githubusercontent.com").addConverterFactory(GsonConverterFactory.create()).build();
@@ -78,23 +82,23 @@ public class ProductFragment extends Fragment {
         task.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                hideLoadingIndicator(); // Hide the loading indicator
 
                 if (response.isSuccessful()) {
                     showProductList(response.body());
                 } else {
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
+                hideLoadingIndicator(); // Hide the loading indicator
                 Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
                 Log.e("[ProductFragment]", "Failed to get product list", t);
                 t.printStackTrace();
             }
         });
-
     }
 
     private void showProductList(List<Product> productList) {
@@ -103,13 +107,22 @@ public class ProductFragment extends Fragment {
         if (isListView) {
             layoutManager = new LinearLayoutManager(getContext());
         } else {
-            layoutManager = new GridLayoutManager(getContext(), 2); // 2 is number of columns
+            layoutManager = new GridLayoutManager(getContext(), 2); // 2 is the number of columns
         }
         binding.recyclerView.setLayoutManager(layoutManager);
 
         // Create Adapter
         ProductsAdapter adapter = new ProductsAdapter();
+        adapter.setIsListView(isListView);
         adapter.submitList(productList);
         binding.recyclerView.setAdapter(adapter);
+    }
+
+    private void showLoadingIndicator() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingIndicator() {
+        progressBar.setVisibility(View.GONE);
     }
 }
