@@ -3,6 +3,7 @@ package kh.edu.rupp.ite.onlineshop.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,5 +37,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         productDescription.setText(product.getDescription());
         productPrice.setText("$" + product.getPrice());
         productRating.setText(String.valueOf(product.getRating()));
+
+        ImageView chevronLeft = findViewById(R.id.chevron_left);
+        chevronLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }
